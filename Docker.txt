@@ -1,0 +1,72 @@
+
+https://docker-curriculum.com/#prerequisites
+
+
+-d  			run in back ground
+-it or -ti 		interactive mode 
+-v			to make persistence directory or to mount host directory in container.
+# iptables -L -t nat	to see ip of docker container in fire wall tables  
+# netstat -plan | grep 3306
+# mysql -h 172.17.0.2 -P 3306 -u root -p
+ 172.17.0.2:3306
+#  mysql -uroot -pindia@123
+#  docker network ls
+
+---- final run below command 
+
+CREATE USER 'puneet'@'172.17.0.4' IDENTIFIED BY 'india';
+GRANT ALL PRIVILEGES ON *.* TO 'puneet'@'172.17.0.4';
+FLUSH PRIVILEGES;
+
+mysql -h 127.0.0.1 -P 3306 -u puneet -p  // password is root
+
+
+root@07632642725f:/# tr '\0' '\n' </proc/1/environ    to environment variable 
+
+______________________________________________________________________________________________________
+
+# docker pull imgage_name (ex.centos ,ubuntu,etc)
+
+# docker search image_name /// to search images
+
+# docker run --name Custom_Container_name -d -p 8080:80 centos or repository of docker hub
+
+# docker rm $(docker ps -a -q -f status=exited)
+
+# docker rmi -f 75835a67d134
+
+# docker diff container name  // to chekc diff installtion app in container
+
+# docker commit container_name Desired_Image_name:tag
+
+# docker run --name mysqltest4 -e MYSQL_ROOT_PASSWORD=india -it -p 192.168.122.1:3306:3306 mysql bash
+
+# cat /etc/*release  // to check version 
+
+
+________________________________________________________________________________________________________
+
+ docker run --name mysqltest5 -it -p 192.168.122.1:3306:3306 mysql bash
+
+ docker run --name mysql-test --link some-mysql:mysql -d application-that-uses-mysql
+
+ docker run -it --link some-mysql:mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+
+$ docker run --name mysql-test1 --link mysql -d apache2
+
+ docker run -p 3306:3306 --name mysqlserver -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server:5.6
+
+
+
+
+apt-get install php7.2 php7.2-mysql libapache2-mod-php7.2 php7.2-cli php7.2-cgi php7.2-gd
+
+_________________________________________________________
+
+
+ Can't connect to MySQL server on '172.17.0.4' (111 "Connection refused")
+
+ Lost connection to MySQL server at 'reading initial communication packet', system error: 0 "Internal error/check (Not system error)"
+
+
+mysql -h 127.0.0.1 -P 3306 -u root -p wordpress

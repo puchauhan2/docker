@@ -1,0 +1,37 @@
+ubuntu@ip-11-0-0-22:/opt/nginx$ cat docker-compose.yml
+version: '2'
+
+services:
+  consul:
+    image: progrium/consul:latest
+    container_name: consul_client
+    privileged: yes
+    ports:
+      - "11.0.0.22:8300:8300"
+      - "11.0.0.22:8301:8301"
+      - "11.0.0.22:8302:8302"
+      - "11.0.0.22:8301:8301/udp"
+      - "11.0.0.22:8302:8302/udp"
+      - "11.0.0.22:8400:8400"
+      - "11.0.0.22:8500:8500"
+      - "172.17.0.1:53:53/udp"
+    command: "-advertise 11.0.0.22 -join 11.0.0.254 -node 11.0.0.22"
+    environment:
+      - SERVICE_IGNORE=1
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    command: nginx -c /opt/nginx/nginx.conf -g "daemon off;"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/nginx:/opt/nginx
+    restart: always
+    depends_on:
+      - consul
+    dns:
+      - 172.17.0.1
+      - 8.8.8.8
+    dns_search: service.consul

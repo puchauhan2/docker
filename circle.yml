@@ -1,0 +1,29 @@
+machine:
+  node:
+    version: 4.4.0
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - pip install awscli
+    - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  override:
+    - cd skills-map && npm install
+    - cd seelio-services/emailer && npm install
+    - cd seelio-services/hollywood-v3 && npm install
+
+test:
+  override:
+    - cd skills-map && npm test
+    - cd seelio-services/emailer && npm test
+    - cd seelio-services/hollywood-v3 && npm test
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - cd skills-map && ./deploy.sh $CIRCLE_SHA1
+      - cd seelio-services/emailer && ./deploy.sh
+      - cd seelio-services/hollywood-v3 && ./deploy.sh
+      - cd seelio-services/notifier && ./deploy.sh

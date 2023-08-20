@@ -1,0 +1,3 @@
+docker commit -m "What did you do to the image" -a "Author Name" container-id repository/new_image_name
+
+Ex : docker commit -m "added node.js" -a "sammy" d9b100f2f636 sammy/ubuntu-nodejs

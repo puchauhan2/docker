@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  web:
+    container_name: nodeapp
+    image: node:pm2iu
+    working_dir: /petboox-webapp
+    command: "npm start"
+    ports:
+      - "4200:4200"
+    volumes:
+      - /root/node_app/petboox-webapp/:/petboox-webapp/
+    networks:
+      - default
+
+
+networks:
+  default:
+    driver: bridge

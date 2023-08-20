@@ -1,0 +1,6 @@
+	  docker run -v /home/seelio/www/dev/seelio-combined/seelio:/opt/seelio -it --name xyz1 seelio_dev_image bash
+	  docker run -p 7754:7754 -p 3000:3000 -it -v /home/seelio/www/dev/seelio-combined/seelio:/opt/seelio --name bbbbb new_node bash
+	  
+	  docker run -it -v /root/node_app/petboox-webapp/:/petboox-webapp/ -p 4200:4200 --name nodeAPP node:pm2iu bash
+
+ docker run -it --name pawlee2  petboox:pawlee2 bash
